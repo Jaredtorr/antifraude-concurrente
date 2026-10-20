@@ -3,3 +3,4 @@ uploads
 .venv
 *.jtl
 datos*.csv
+load/*-reporte/
