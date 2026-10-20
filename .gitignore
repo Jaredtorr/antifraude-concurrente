@@ -4,3 +4,4 @@ uploads
 *.jtl
 datos*.csv
 load/*-reporte/
+jmeter.log
