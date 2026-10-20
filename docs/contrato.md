@@ -11,6 +11,10 @@ el PID del proceso que atendió la petición y el encabezado `Server-Timing`.
 | `GET /lotes/:id` | id del lote | 200 con estado, avance, resultado y tiempos (cola, ejecución, total), 404 |
 | `POST /tarjetas/:id/autorizar` | JSON `{ "monto": número > 0 }` | 200 autorizada, 400 entrada inválida, 429 límite excedido |
 
-Cualquier método no soportado en una ruCualquier método no soportadunCualquier método no sopode 404. Un error inesperado responde 500.
+Cualquier método no soportado en una ruta existente responde 405, y una ruta
+desconocida responde 404. Un error inesperado responde 500.
 
-## Límites configurables (variables de entorno)## Límites configurables (variables de entorno)## Límites configurablEOUT_ANA## Límites configurables (variables de entoENTANA_MS.
+## Límites configurables (variables de entorno)
+
+PUERTO, PROCESOS, TAMANO_POOL, LIMITE_COLA, MAX_PROCESOS_EXTERNOS,
+TIMEOUT_ANALISIS_MS, TIMEOUT_LOTE_MS, LIMITE_TARJETA, VENTANA_MS.
