@@ -1,0 +1,16 @@
+{
+  "name": "antifraude-concurrente",
+  "version": "1.0.0",
+  "description": "API concurrente en Node.js para detección de fraude",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "start:naive": "node naive/server.js"
+  },
+  "author": "Jared Torres Morga",
+  "license": "ISC"
+}
