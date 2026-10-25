@@ -3,6 +3,7 @@ import { performance } from 'node:perf_hooks';
 import { totalTarjetas } from '../servicios/reglas.js';
 import { leerCuerpo, responder } from '../servidor.js';
 import { registrar } from '../metricas.js';
+import { publicarLote, obtenerLote } from '../ipc.js';
 import { log } from '../log.js';
 
 const MAX_LOTES = 500;
@@ -46,6 +47,7 @@ function finalizar(lote, estado, codigo) {
         estado,
         total_ms: Math.round(lote.totalMs),
     });
+    publicarLote(lote);
 }
 
 export function crearRutasLotes(pool) {
@@ -83,6 +85,7 @@ export function crearRutasLotes(pool) {
             };
             lotes.set(id, lote);
             podar();
+            publicarLote(lote);
 
             for (const [desde, hasta] of repartir(total, partes)) {
                 pool.ejecutar({ idTarea: `${id}:${desde}`, desde, hasta, semilla })
@@ -92,10 +95,12 @@ export function crearRutasLotes(pool) {
                         lote.colaMs = Math.max(lote.colaMs, colaMs);
                         lote.ejecucionMs = Math.max(lote.ejecucionMs, ejecucionMs);
                         if (++lote.hechos === lote.tramos) finalizar(lote, 'completado', 200);
+                        else publicarLote(lote);
                     })
                     .catch((e) => {
                         if (lote.estado !== 'en_proceso') return;
                         lote.error = e.message;
+                        log('error', 'tramo fallido', { id, error: e.stack });
                         finalizar(lote, 'error', e.codigo ?? 500);
                     });
             }
@@ -110,8 +115,8 @@ export function crearRutasLotes(pool) {
         metodo: 'GET',
         patron: /^\/lotes\/([0-9a-f-]{36})$/,
         nombre: 'lotes_consulta',
-        manejador: ({ res, params }) => {
-            const l = lotes.get(params[0]);
+        manejador: async ({ res, params }) => {
+            const l = lotes.get(params[0]) ?? await obtenerLote(params[0]);
             if (!l) return responder(res, 404, { error: 'lote no encontrado' });
             const cuerpo = {
                 id: l.id, estado: l.estado, avance: `${l.hechos}/${l.tramos}`,
