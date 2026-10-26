@@ -16,5 +16,14 @@ desconocida responde 404. Un error inesperado responde 500.
 
 ## Límites configurables (variables de entorno)
 
-PUERTO, PROCESOS, TAMANO_POOL, LIMITE_COLA, MAX_PROCESOS_EXTERNOS,
-TIMEOUT_ANALISIS_MS, TIMEOUT_LOTE_MS, LIMITE_TARJETA, VENTANA_MS.
+| Variable | Defecto | Efecto |
+|---|---|---|
+| `PUERTO` | 3000 | Puerto HTTP |
+| `PROCESOS` | núcleos disponibles | Procesos del cluster |
+| `POOL` | núcleos / 2 (mínimo 1) | Hilos del pool de `worker_threads`, por proceso |
+| `COLA_MAX` | 32 | Tramos en cola del pool; al llenarse, `/lotes` responde 503 |
+| `EXTERNOS_MAX` | 2 | Procesos `detectar.py` simultáneos, por proceso; al llenarse, `/analisis` responde 429 o 503 |
+| `TIMEOUT_MS` | 30000 | Timeout por tarea (pool y proceso externo) |
+| `PYTHON` | `python3` | Intérprete usado por `child_process` |
+
+`POOL` y `EXTERNOS_MAX` se aplican por proceso: el total es `PROCESOS x POOL` hilos y `PROCESOS x EXTERNOS_MAX` procesos externos, y debe cuidarse que no excedan los núcleos.
