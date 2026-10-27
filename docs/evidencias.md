@@ -113,3 +113,11 @@ El costo del contador único (un mensaje IPC al primario por intento) se ve en e
 
 ### Perfil de CPU (`--cpu-prof`, `/lotes`, 10 hilos, 15 s)
 Archivos en `load/perfil/`. En los 4 hilos del pool domina `generarTarjeta` (`servicios/reglas.js:20`) con 47 a 50 % del tiempo; `(idle)` ronda 31 % y `analizarTarjetas` 11 a 14 %. El cálculo vive en los hilos del pool.
+
+## Arranque en frío contra reutilización del pool (Config A, /lotes, 30 millones, semilla 42)
+| Lote | ejecucion_ms | total_ms |
+|---|---|---|
+| Primero tras arrancar (en frío) | 483.4 | 483.6 |
+| En caliente (4 lotes) | 460 a 471.7 | 460 a 472 |
+
+El primer lote tarda unos 18 ms más (≈4 %). El pool crea y carga los workers al arrancar, así que el costo de arranque no recae sobre la primera petición. Una sola medición en frío: es una tendencia, no una medida estadística.
