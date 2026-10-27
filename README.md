@@ -4,7 +4,7 @@ Proyecto integrador de Programación Concurrente. API REST sin librerías extern
 
 ## Requisitos
 - Node.js 24 LTS (`nvm use` lee `.nvmrc`)
-- Python 3 con las dependencias de `python/detectar.py` (se usa `.venv`)
+- Python 3 con pandas y scikit-learn para `/analisis` (`pip install pandas scikit-learn`; se usa `.venv`)
 - JMeter 5.6.3 (solo para las mediciones)
 
 ## Ejecución
