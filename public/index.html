@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Banco antifraude · Centro de control</title>
+    <style>
+        :root {
+            --bg: #070b18;
+            --pan: #0f1730;
+            --bor: #26376a;
+            --txt: #eaf0ff;
+            --dim: #8d9cc9;
+            --ok: #2ee59d;
+            --mal: #ff4d6d;
+            --az: #4da3ff;
+            --wr: #ffc24d;
+            --oro: #e8b64a;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(1200px 600px at 50% -200px, #16275a, var(--bg));
+            color: var(--txt);
+            font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif
+        }
+
+        .wrap {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 16px
+        }
+
+        .dim {
+            color: var(--dim);
+            font-size: 13px
+        }
+
+        .caja {
+            background: var(--pan);
+            border: 1px solid var(--bor);
+            border-radius: 16px
+        }
+
+        @keyframes parp {
+            to {
+                opacity: .35
+            }
+        }
+
+        @keyframes entra {
+            from {
+                transform: translateX(-14px);
+                opacity: 0
+            }
+
+            to {
+                transform: none;
+                opacity: 1
+            }
+        }
+
+        @keyframes lat {
+            to {
+                filter: brightness(1.4)
+            }
+        }
+
+        .letrero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 26px;
+            margin-bottom: 10px;
+            border-color: #3a4f8f;
+            background: linear-gradient(180deg, #18265a, #0f1730)
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .marca svg {
+            width: 48px;
+            height: 48px
+        }
+
+        .marca h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--oro);
+            text-shadow: 0 0 18px rgba(232, 182, 74, .4)
+        }
+
+        .sema {
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .foco {
+            display: flex;
+            gap: 8px;
+            background: #05080f;
+            border: 1px solid var(--bor);
+            border-radius: 30px;
+            padding: 6px 10px
+        }
+
+        .foco i {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #1a2340;
+            transition: background .3s, box-shadow .3s
+        }
+
+        .foco.ok .v {
+            background: var(--ok);
+            box-shadow: 0 0 18px var(--ok)
+        }
+
+        .foco.mal .r {
+            background: var(--mal);
+            box-shadow: 0 0 20px var(--mal);
+            animation: parp .6s infinite alternate
+        }
+
+        #estado {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: var(--dim)
+        }
+
+        #estado.ok {
+            color: var(--ok)
+        }
+
+        #estado.mal {
+            color: var(--mal)
+        }
+
+        .ticker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font: 13px var(--mono);
+            color: var(--wr);
+            background: #05080f;
+            border: 1px solid var(--bor);
+            border-radius: 10px;
+            padding: 8px 16px;
+            margin-bottom: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            letter-spacing: .04em
+        }
+
+        .ticker span {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .ticker i {
+            flex: none;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--ok);
+            animation: parp 1s infinite alternate
+        }
+
+        .sucs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px
+        }
+
+        .suc {
+            padding: 14px;
+            transition: opacity .4s, border-color .3s, box-shadow .3s
+        }
+
+        .suc.viejo {
+            opacity: .5
+        }
+
+        .suc.vivo {
+            border-color: var(--az);
+            box-shadow: 0 0 28px rgba(77, 163, 255, .18)
+        }
+
+        .cab {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px
+        }
+
+        .cab h2 {
+            margin: 0;
+            font-size: 15px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--oro)
+        }
+
+        .cab h2 span {
+            color: var(--dim);
+            letter-spacing: .04em
+        }
+
+        .ins {
+            font: 11px var(--mono);
+            letter-spacing: .1em;
+            color: #04210f;
+            background: var(--ok);
+            border-radius: 20px;
+            padding: 2px 10px;
+            opacity: 0;
+            transition: opacity .3s
+        }
+
+        .suc.vivo .ins {
+            opacity: 1
+        }
+
+        .escena {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #1d2c5c
+        }
+
+        .muro {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            padding: 18px 12px 0;
+            background: linear-gradient(#1a2b61, #0e1736)
+        }
+
+        .puesto {
+            width: 104px
+        }
+
+        .atm {
+            height: 142px;
+            border-radius: 12px 12px 4px 4px;
+            background: linear-gradient(#2c3d78, #1b274f);
+            border: 2px solid #34498c;
+            position: relative;
+            transition: border-color .3s, box-shadow .3s
+        }
+
+        .pant {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 10px;
+            height: 46px;
+            border-radius: 6px;
+            background: #081020;
+            border: 1px solid #22345f;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font: 700 11px var(--mono);
+            letter-spacing: .12em
+        }
+
+        .pant b {
+            position: absolute;
+            transition: opacity .3s
+        }
+
+        .pant .l {
+            color: #35a37d
+        }
+
+        .pant .o {
+            opacity: 0;
+            color: #d4ebff
+        }
+
+        .pant::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .06) 0 1px, transparent 1px 3px)
+        }
+
+        .teclas {
+            position: absolute;
+            left: 28px;
+            right: 28px;
+            top: 66px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px
+        }
+
+        .teclas i {
+            height: 8px;
+            border-radius: 2px;
+            background: #42569c
+        }
+
+        .ran {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            top: 104px;
+            height: 7px;
+            border-radius: 3px;
+            background: #05080f;
+            box-shadow: inset 0 0 0 1px #34498c;
+            transition: background .3s, box-shadow .3s
+        }
+
+        .efe {
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            bottom: 8px;
+            height: 10px;
+            border-radius: 2px;
+            background: #0b132a
+        }
+
+        .puesto.on .atm {
+            border-color: var(--az);
+            box-shadow: 0 0 26px rgba(77, 163, 255, .4)
+        }
+
+        .puesto.on .pant {
+            background: #0b3a78;
+            border-color: var(--az);
+            animation: lat .8s infinite alternate
+        }
+
+        .puesto.on .pant .l {
+            opacity: 0
+        }
+
+        .puesto.on .pant .o {
+            opacity: 1
+        }
+
+        .puesto.on .ran {
+            background: var(--wr);
+            box-shadow: 0 0 12px var(--wr)
+        }
+
+        .suelo {
+            background-color: #0b1330;
+            background-image: linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px), linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px);
+            background-size: 34px 34px;
+            border-top: 3px solid #34498c
+        }
+
+        .pisos {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            padding: 0 12px;
+            height: 66px
+        }
+
+        .pu {
+            width: 104px;
+            position: relative
+        }
+
+        .pp {
+            width: 16px;
+            height: 34px;
+            position: relative;
+            --c: #7aa7ff
+        }
+
+        .pp::before {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--c)
+        }
+
+        .pp::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 16px;
+            height: 23px;
+            border-radius: 8px 8px 3px 3px;
+            background: var(--c)
+        }
+
+        .usr {
+            position: absolute;
+            left: 50%;
+            bottom: 8px;
+            margin-left: -8px;
+            opacity: 0;
+            transform: translateY(30px) scale(1.5);
+            transform-origin: bottom center;
+            transition: opacity .35s, transform .35s
+        }
+
+        .pu.on .usr {
+            opacity: 1;
+            transform: translateY(0) scale(1.5)
+        }
+
+        .fila {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: 7px;
+            height: 70px;
+            padding: 0 18px 12px;
+            border-top: 1px dashed #2b3d75
+        }
+
+        .fila::after {
+            content: "";
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 5px;
+            height: 3px;
+            border-radius: 2px;
+            background: repeating-linear-gradient(90deg, var(--oro) 0 10px, transparent 10px 16px);
+            opacity: .5
+        }
+
+        .rotulo {
+            position: absolute;
+            left: 18px;
+            top: 6px;
+            font: 11px var(--mono);
+            letter-spacing: .12em;
+            color: var(--dim)
+        }
+
+        .gente {
+            display: flex;
+            align-items: flex-end;
+            gap: 7px;
+            margin-left: 78px
+        }
+
+        .gente .pp {
+            animation: entra .4s ease-out
+        }
+
+        .mas {
+            font: 13px var(--mono);
+            color: var(--wr)
+        }
+
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px
+        }
+
+        .chip {
+            font: 12px var(--mono);
+            background: #0a1127;
+            border: 1px solid var(--bor);
+            border-radius: 20px;
+            padding: 3px 11px;
+            color: var(--dim)
+        }
+
+        .chip b {
+            color: var(--txt);
+            font-weight: 600
+        }
+
+        .mets {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px
+        }
+
+        .met {
+            padding: 12px 16px
+        }
+
+        .met .big {
+            font-size: 30px;
+            font-weight: 700;
+            display: block;
+            margin-top: 2px
+        }
+
+        .gauge {
+            width: 100%;
+            max-width: 230px;
+            display: block;
+            margin: 4px auto 0
+        }
+
+        .gauge text {
+            font-family: system-ui, sans-serif
+        }
+
+        .barra {
+            height: 10px;
+            border-radius: 6px;
+            background: #1a2547;
+            overflow: hidden;
+            margin: 10px 0 6px
+        }
+
+        .barra i {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: 6px;
+            background: var(--az);
+            transition: width .5s
+        }
+
+        .led {
+            font: 700 28px var(--mono);
+            color: var(--wr);
+            letter-spacing: .06em;
+            text-shadow: 0 0 12px rgba(255, 194, 77, .35)
+        }
+
+        .flash {
+            animation: fl .9s ease-out
+        }
+
+        @keyframes fl {
+            from {
+                color: var(--wr);
+                transform: scale(1.12)
+            }
+
+            to {
+                color: var(--txt);
+                transform: none
+            }
+        }
+
+        .latp {
+            display: grid;
+            grid-template-columns: 230px 1fr;
+            gap: 18px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            align-items: center
+        }
+
+        .latp .num {
+            font-size: 46px;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--ok);
+            transition: color .3s
+        }
+
+        .latp .num.mal {
+            color: var(--mal)
+        }
+
+        .latp .num small {
+            font-size: 18px;
+            color: var(--dim);
+            font-weight: 400
+        }
+
+        #pulso {
+            width: 100%;
+            height: 120px;
+            display: block;
+            background: #070d20;
+            border-radius: 10px;
+            border: 1px solid #1d2c5c
+        }
+
+        #pulso polyline {
+            fill: none;
+            stroke: var(--ok);
+            stroke-width: 2.2;
+            vector-effect: non-scaling-stroke;
+            stroke-linejoin: round
+        }
+
+        #pulso.mal polyline {
+            stroke: var(--mal)
+        }
+
+        #pulso polygon {
+            fill: rgba(46, 229, 157, .12)
+        }
+
+        #pulso.mal polygon {
+            fill: rgba(255, 77, 109, .14)
+        }
+
+        #pulso line {
+            stroke: var(--oro);
+            stroke-width: 1;
+            stroke-dasharray: 5 5;
+            vector-effect: non-scaling-stroke;
+            opacity: .6
+        }
+
+        @media(max-width:900px) {
+            .sucs {
+                grid-template-columns: 1fr
+            }
+
+            .mets {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .latp {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+
+        <header class="caja letrero">
+            <div class="marca">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M24 4 L41 10 V23 C41 33 34 41 24 44 C14 41 7 33 7 23 V10 Z" fill="#16224a" stroke="#e8b64a"
+                        stroke-width="2.5" />
+                    <path d="M15 24 L21.5 30.5 L33 17" fill="none" stroke="#2ee59d" stroke-width="3.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div>
+                    <h1>Banco antifraude</h1><span class="dim">Centro de control en vivo · GET /health cada
+                        segundo</span>
+                </div>
+            </div>
+            <div class="sema">
+                <div id="foco" class="foco"><i class="v"></i><i class="r"></i></div>
+                <div id="estado">CONECTANDO…</div>
+            </div>
+        </header>
+
+        <div class="ticker"><i></i><span id="ticker">esperando la primera respuesta de /health…</span></div>
+
+        <section class="sucs" id="sucs"></section>
+
+        <section class="mets">
+            <div class="caja met">
+                <span class="dim">Event Loop p99 · umbral 50 ms</span>
+                <svg class="gauge" viewBox="0 0 200 116" aria-hidden="true">
+                    <path d="M20 100 A80 80 0 0 1 180 100" pathLength="100" fill="none" stroke="#1a2547"
+                        stroke-width="14" stroke-linecap="round" />
+                    <path id="g-arco" d="M20 100 A80 80 0 0 1 180 100" pathLength="100" fill="none" stroke="#2ee59d"
+                        stroke-width="14" stroke-linecap="round" stroke-dasharray="0 100"
+                        style="transition:stroke-dasharray .5s,stroke .3s" />
+                    <line x1="100" y1="10" x2="100" y2="30" stroke="#e8b64a" stroke-width="3" />
+                    <text id="g-txt" x="100" y="92" text-anchor="middle" font-size="30" font-weight="700"
+                        fill="#eaf0ff">–</text>
+                    <text id="g-p50" x="100" y="112" text-anchor="middle" font-size="12" fill="#8d9cc9">p50 –</text>
+                </svg>
+            </div>
+            <div class="caja met">
+                <span class="dim">Memoria</span><b class="big" id="m-mem">–</b>
+                <div class="barra"><i id="m-barra"></i></div>
+                <span class="dim" id="m-det">heap dentro del rss</span>
+            </div>
+            <div class="caja met"><span class="dim">Tiempo en servicio</span><b class="big led" id="m-up">–</b><span
+                    class="dim">del proceso que respondió</span></div>
+            <div class="caja met"><span class="dim">Respondió el PID</span><b class="big" id="m-pid">–</b><span
+                    class="dim" id="m-vistos">procesos vistos: 0</span></div>
+        </section>
+
+        <section class="caja latp">
+            <div>
+                <span class="dim">Latencia de GET /health</span>
+                <div class="num" id="lat-num">– <small>ms</small></div>
+                <span class="dim" id="lat-det">mín – · prom – · máx –</span>
+            </div>
+            <svg id="pulso" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="0" y1="25" x2="600" y2="25" />
+                <polygon id="p-area" points="" />
+                <polyline id="p-linea" points="" />
+            </svg>
+        </section>
+
+        <main id="paneles"></main>
+
+    </div>
+    <script>
+        const $ = (id) => document.getElementById(id);
+        const N = 60;
+        const GENTE = ['#7aa7ff', '#ffc24d', '#ff8fab', '#7ee0c3', '#c3a6ff', '#ffa86b'];
+        const slots = [];
+        const lat = [];
+        const pidsVistos = new Set();
+        let ultimoPid = null;
+
+        function crearSlot(letra) {
+            const el = document.createElement('article');
+            el.className = 'caja suc viejo';
+            el.innerHTML = '<div class="cab"><h2>Sucursal ' + letra + ' <span class="pidtxt">· esperando…</span></h2><span class="ins">ATENDIÓ</span></div>' +
+                '<div class="escena"><div class="muro"></div><div class="suelo"><div class="pisos"></div>' +
+                '<div class="fila"><span class="rotulo">FILA · 0</span><div class="gente"></div><span class="mas"></span></div></div></div>' +
+                '<div class="chips"></div>';
+            $('sucs').appendChild(el);
+            const q = (c) => el.querySelector(c);
+            return { el, pid: null, n: 0, visto: 0, muro: q('.muro'), pisos: q('.pisos'), gente: q('.gente'), mas: q('.mas'), rotulo: q('.rotulo'), chips: q('.chips'), pidtxt: q('.pidtxt') };
+        }
+        slots.push(crearSlot('A'), crearSlot('B'));
+
+        function slotDe(pid) {
+            return slots.find((s) => s.pid === pid) || slots.find((s) => s.pid === null);
+        }
+
+        function pintarSlot(s, d) {
+            s.pid = d.pid;
+            s.visto = Date.now();
+            s.pidtxt.textContent = '· PID ' + d.pid;
+            const w = d.workers;
+            const total = w.libres + w.ocupados;
+            if (s.n !== total) {
+                s.muro.innerHTML = '';
+                s.pisos.innerHTML = '';
+                for (let i = 0; i < total; i++) {
+                    s.muro.insertAdjacentHTML('beforeend', '<div class="puesto"><div class="atm"><div class="pant"><b class="l">LIBRE</b><b class="o">ATENDIENDO</b></div><div class="teclas">' + '<i></i>'.repeat(9) + '</div><div class="ran"></div><div class="efe"></div></div></div>');
+                    s.pisos.insertAdjacentHTML('beforeend', '<div class="pu"><div class="pp usr" style="--c:' + GENTE[(i + 2) % GENTE.length] + '"></div></div>');
+                }
+                s.n = total;
+            }
+            for (let i = 0; i < total; i++) {
+                const on = i < w.ocupados;
+                s.muro.children[i].classList.toggle('on', on);
+                s.pisos.children[i].classList.toggle('on', on);
+            }
+            const q = Math.min(d.cola, 12);
+            while (s.gente.children.length < q) {
+                const p = document.createElement('div');
+                p.className = 'pp';
+                p.style.setProperty('--c', GENTE[s.gente.children.length % GENTE.length]);
+                s.gente.appendChild(p);
+            }
+            while (s.gente.children.length > q) s.gente.lastChild.remove();
+            s.mas.textContent = d.cola > 12 ? '+' + (d.cola - 12) : '';
+            s.rotulo.textContent = 'FILA · ' + d.cola;
+            const chip = (t, v) => '<span class="chip">' + t + ' <b>' + v + '</b></span>';
+            s.chips.innerHTML = chip('cajeros libres', w.libres) + chip('ocupados', w.ocupados) + chip('en fila', d.cola) + chip('revisiones externas', d.externos_activos);
+        }
+
+        function dibujarPulso(ok) {
+            const n = lat.length;
+            const pts = lat.map((v, i) => {
+                const x = ((i + N - n) / (N - 1)) * 600;
+                const y = 112 - Math.min(v === null ? 60 : v, 60) / 60 * 104;
+                return x.toFixed(1) + ',' + y.toFixed(1);
+            });
+            const x0 = ((N - n) / (N - 1)) * 600;
+            $('p-linea').setAttribute('points', pts.join(' '));
+            $('p-area').setAttribute('points', x0.toFixed(1) + ',116 ' + pts.join(' ') + ' 600,116');
+            $('pulso').classList.toggle('mal', !ok);
+        }
+
+        function sellar(ms, ok) {
+            lat.push(ms);
+            if (lat.length > N) lat.shift();
+            dibujarPulso(ok);
+            const v = lat.filter((x) => x !== null);
+            if (!v.length) return;
+            const prom = v.reduce((a, b) => a + b, 0) / v.length;
+            $('lat-det').textContent = 'mín ' + Math.min(...v).toFixed(1) + ' · prom ' + prom.toFixed(1) + ' · máx ' + Math.max(...v).toFixed(1);
+        }
+
+        const dos = (n) => String(n).padStart(2, '0');
+
+        function pintar(d, codigo, ms) {
+            const ok = codigo === 200 && d.estado === 'ok';
+            $('foco').className = 'foco ' + (ok ? 'ok' : 'mal');
+            $('estado').className = ok ? 'ok' : 'mal';
+            $('estado').textContent = ok ? 'ABIERTO · TODO OK' : 'SERVICIO DEGRADADO';
+
+            const s = slotDe(d.pid);
+            slots.forEach((x) => x.el.classList.remove('vivo'));
+            pintarSlot(s, d);
+            s.el.classList.add('vivo');
+
+            const p99 = d.event_loop_ms.p99;
+            $('g-arco').setAttribute('stroke-dasharray', Math.min(p99 / 100 * 100, 100) + ' 100');
+            $('g-arco').setAttribute('stroke', p99 >= 50 ? '#ff4d6d' : p99 >= 25 ? '#ffc24d' : '#2ee59d');
+            $('g-txt').textContent = p99 + ' ms';
+            $('g-p50').textContent = 'p50 ' + d.event_loop_ms.p50 + ' ms';
+
+            const m = d.memoria_mb;
+            $('m-mem').textContent = m.rss + ' MB';
+            $('m-barra').style.width = Math.min(100, m.heap / m.rss * 100) + '%';
+            $('m-det').textContent = 'heap ' + m.heap + ' MB dentro del rss';
+
+            const u = d.uptime_s;
+            $('m-up').textContent = dos(Math.floor(u / 3600)) + ':' + dos(Math.floor((u % 3600) / 60)) + ':' + dos(u % 60);
+
+            const pid = $('m-pid');
+            pid.textContent = d.pid;
+            if (ultimoPid !== d.pid) { pid.classList.remove('flash'); void pid.offsetWidth; pid.classList.add('flash'); }
+            ultimoPid = d.pid;
+            pidsVistos.add(d.pid);
+            $('m-vistos').textContent = 'procesos vistos: ' + pidsVistos.size;
+
+            const num = $('lat-num');
+            num.innerHTML = ms.toFixed(1) + ' <small>ms</small>';
+            num.classList.toggle('mal', !ok);
+            sellar(ms, ok);
+
+            const hora = new Date().toLocaleTimeString('es-MX', { hour12: false });
+            $('ticker').textContent = hora + ' · PID ' + d.pid + ' · ' + codigo + ' · ' + ms.toFixed(1) + ' ms · cola ' + d.cola + ' · p99 ' + p99 + ' ms';
+            document.dispatchEvent(new CustomEvent('health', { detail: { datos: d, codigo, ms } }));
+        }
+
+        function caida() {
+            $('foco').className = 'foco';
+            $('estado').className = '';
+            $('estado').textContent = 'SIN CONEXIÓN';
+            $('ticker').textContent = 'sin respuesta de /health · reintentando…';
+            $('lat-num').innerHTML = '– <small>ms</small>';
+            sellar(null, false);
+        }
+
+        async function consulta() {
+            const t0 = performance.now();
+            const ctl = new AbortController();
+            const to = setTimeout(() => ctl.abort(), 3000);
+            try {
+                const r = await fetch('/health', { cache: 'no-store', signal: ctl.signal });
+                const d = await r.json();
+                pintar(d, r.status, performance.now() - t0);
+            } catch (e) {
+                caida();
+            } finally {
+                clearTimeout(to);
+            }
+        }
+
+        async function sondear() {
+            const t0 = performance.now();
+            await Promise.all([consulta(), consulta()]);
+            setTimeout(sondear, Math.max(50, 1000 - (performance.now() - t0)));
+        }
+
+        setInterval(() => {
+            slots.forEach((s) => s.el.classList.toggle('viejo', s.pid === null || Date.now() - s.visto > 3500));
+        }, 700);
+
+        sondear();
+    </script>
+</body>
+
+</html>

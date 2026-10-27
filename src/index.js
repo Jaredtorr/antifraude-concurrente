@@ -13,12 +13,13 @@ if (cluster.isPrimary) {
     const { crearRutasLotes } = await import('./recursos/lotes.js');
     const { rutaAnalisis, estadoExternos, matarTodos } = await import('./recursos/analisis.js');
     const { rutaTarjetas } = await import('./recursos/tarjetas.js');
+    const { rutaEstatico } = await import('./recursos/estatico.js');
 
     const { sab } = crearContador();
     const pool = new Pool({ sab, modo: process.env.CONTADOR === 'carrera' ? 'carrera' : 'atomico' });
 
     const servidor = crearServidor({
-        rutas: [rutaAnalisis, rutaTarjetas, ...crearRutasLotes(pool)],
+        rutas: [rutaEstatico, rutaAnalisis, rutaTarjetas, ...crearRutasLotes(pool)],
         salud: () => {
             const e = pool.estado();
             return {
