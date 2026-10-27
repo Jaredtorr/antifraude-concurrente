@@ -22,15 +22,15 @@ npm run start:naive
 | Variable | Defecto | Efecto |
 |---|---|---|
 | `PUERTO` | 3000 | Puerto HTTP |
-| `PROCESOS` | núcleos disponibles | Procesos del cluster |
-| `POOL` | núcleos / 2 (mínimo 1) | Hilos del pool de workers, por proceso |
+| `PROCESOS` | 2 (o los núcleos si hay menos) | Procesos del cluster |
+| `POOL` | (núcleos ÷ PROCESOS) − EXTERNOS_MAX − 1, mínimo 1; con 10 núcleos: 3 | Hilos del pool de workers, por proceso |
 | `COLA_MAX` | 32 | Tramos en cola; al llenarse, `/lotes` responde 503 |
-| `EXTERNOS_MAX` | 2 | Procesos `detectar.py` simultáneos, por proceso |
+| `EXTERNOS_MAX` | 1 | Procesos `detectar.py` simultáneos, por proceso |
 | `TIMEOUT_MS` | 30000 | Timeout por tarea |
 | `PYTHON` | `python3` | Intérprete para `child_process` |
 | `CONTADOR` | (atómico) | `carrera` activa la versión con carrera de datos (solo para la demostración) |
 
-`POOL` y `EXTERNOS_MAX` son por proceso. Debe cumplirse `PROCESOS x POOL x EXTERNOS_MAX <= núcleos` (la máquina de pruebas tiene 10).
+`POOL` y `EXTERNOS_MAX` son por proceso. Los valores por defecto cumplen `PROCESOS x (POOL + EXTERNOS_MAX + 1) <= núcleos` (el 1 es el hilo principal de cada proceso); con 10 núcleos: 2 x (3 + 1 + 1) = 10.
 
 ## Contrato
 Ver `docs/contrato.md`. Todas las respuestas llevan `X-PID` y `Server-Timing`. Códigos usados: 200, 201, 202, 400, 404, 405, 429, 500, 503.
