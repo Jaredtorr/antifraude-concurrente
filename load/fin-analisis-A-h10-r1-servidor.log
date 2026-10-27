@@ -1,0 +1,5 @@
+{"t":"2026-10-26T22:39:57.242Z","pid":69212,"nivel":"info","mensaje":"primario iniciado","procesos":1,"pool":4,"externos":2,"puerto":3000}
+{"t":"2026-10-26T22:39:57.244Z","pid":69212,"nivel":"info","mensaje":"worker lanzado","worker":69224}
+{"t":"2026-10-26T22:39:57.291Z","pid":69224,"nivel":"info","mensaje":"worker escuchando","puerto":3000}
+{"t":"2026-10-26T22:41:04.788Z","pid":69212,"nivel":"info","mensaje":"cierre ordenado","senal":"SIGTERM"}
+{"t":"2026-10-26T22:41:04.788Z","pid":69224,"nivel":"info","mensaje":"apagando worker","senal":"SIGTERM"}

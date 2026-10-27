@@ -1,0 +1,1 @@
+{"estado":"ok","pid":69224,"uptime_s":68,"workers":{"libres":4,"ocupados":0},"cola":0,"externos_activos":0,"event_loop_ms":{"p50":11.03,"p99":15.01},"memoria_mb":{"rss":241,"heap":13.3},"recursos":{"analisis":{"n":1202246,"codigos":{"200":82,"429":1202164},"p50":0,"p95":0,"p99":0.01,"cola_p50":0,"ejecucion_p50":0}}}

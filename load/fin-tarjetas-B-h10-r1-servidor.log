@@ -1,0 +1,211 @@
+{"t":"2026-10-26T22:43:38.495Z","pid":69803,"nivel":"info","mensaje":"primario iniciado","procesos":2,"pool":2,"externos":1,"puerto":3000}
+{"t":"2026-10-26T22:43:38.497Z","pid":69803,"nivel":"info","mensaje":"worker lanzado","worker":69815}
+{"t":"2026-10-26T22:43:38.498Z","pid":69803,"nivel":"info","mensaje":"worker lanzado","worker":69816}
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: bind EADDRINUSE null:3000
+    at listenOnPrimaryHandle (node:net:2523:18)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<a{"t":"2026-10-26T22:47:56.052Z","pid":69738,"nivel":"info","mensaje":"cierre ordenado","senal":"SIGTERM"}
+{"t":"2026-10-26T22:47:56.056Z","pid":69750,"nivel":"info","mensaje":"apagando worker","senal":"SIGTERM"}
+{"t":"2026-10-26T22:47:56.056Z","pid":69751,"nivel":"info","mensaje":"apagando worker","senal":"SIGTERM"}
+r instance at:
+    at listenOnPrimaryHandle (node:net:2524:21)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+  errno: -48,
+  code: 'EADDRINUSE',
+  syscall: 'bind',
+  address: null,
+  port: 3000
+}
+
+Node.js v24.22.0
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: bind EADDRINUSE null:3000
+    at listenOnPrimaryHandle (node:net:2523:18)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+Emitted 'error' event on Server instance at:
+    at listenOnPrimaryHandle (node:net:2524:21)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+  errno: -48,
+  code: 'EADDRINUSE',
+  syscall: 'bind',
+  address: null,
+  port: 3000
+}
+
+Node.js v24.22.0
+{"t":"2026-10-26T22:43:38.546Z","pid":69803,"nivel":"error","mensaje":"worker caído","worker":69815,"codigo":1,"senal":null}
+{"t":"2026-10-26T22:43:38.546Z","pid":69803,"nivel":"info","mensaje":"worker lanzado","worker":69817}
+{"t":"2026-10-26T22:43:38.546Z","pid":69803,"nivel":"error","mensaje":"worker caído","worker":69816,"codigo":1,"senal":null}
+{"t":"2026-10-26T22:43:38.546Z","pid":69803,"nivel":"info","mensaje":"worker lanzado","worker":69818}
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: bind EADDRINUSE null:3000
+    at listenOnPrimaryHandle (node:net:2523:18)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+Emitted 'error' event on Server instance at:
+    at listenOnPrimaryHandle (node:net:2524:21)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+  errno: -48,
+  code: 'EADDRINUSE',
+  syscall: 'bind',
+  address: null,
+  port: 3000
+}
+
+Node.js v24.22.0
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: bind EADDRINUSE null:3000
+    at listenOnPrimaryHandle (node:net:2523:18)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+Emitted 'error' event on Server instance at:
+    at listenOnPrimaryHandle (node:net:2524:21)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+  errno: -48,
+  code: 'EADDRINUSE',
+  syscall: 'bind',
+  address: null,
+  port: 3000
+}
+
+Node.js v24.22.0
+{"t":"2026-10-26T22:43:38.608Z","pid":69803,"nivel":"error","mensaje":"worker caído","worker":69818,"codigo":1,"senal":null}
+{"t":"2026-10-26T22:43:38.609Z","pid":69803,"nivel":"info","mensaje":"worker lanzado","worker":69819}
+{"t":"2026-10-26T22:43:38.610Z","pid":69803,"nivel":"error","mensaje":"worker caído","worker":69817,"codigo":1,"senal":null}
+{"t":"2026-10-26T22:43:38.610Z","pid":69803,"nivel":"info","mensaje":"worker lanzado","worker":69820}
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: bind EADDRINUSE null:3000
+    at listenOnPrimaryHandle (node:net:2523:18)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+Emitted 'error' event on Server instance at:
+    at listenOnPrimaryHandle (node:net:2524:21)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+  errno: -48,
+  code: 'EADDRINUSE',
+  syscall: 'bind',
+  address: null,
+  port: 3000
+}
+
+Node.js v24.22.0
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: bind EADDRINUSE null:3000
+    at listenOnPrimaryHandle (node:net:2523:18)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+Emitted 'error' event on Server instance at:
+    at listenOnPrimaryHandle (node:net:2524:21)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+  errno: -48,
+  code: 'EADDRINUSE',
+  syscall: 'bind',
+  address: null,
+  port: 3000
+}
+
+Node.js v24.22.0
+{"t":"2026-10-26T22:43:38.649Z","pid":69803,"nivel":"error","mensaje":"worker caído","worker":69819,"codigo":1,"senal":null}
+{"t":"2026-10-26T22:43:38.650Z","pid":69803,"nivel":"info","mensaje":"worker lanzado","worker":69821}
+{"t":"2026-10-26T22:43:38.652Z","pid":69803,"nivel":"error","mensaje":"worker caído","worker":69820,"codigo":1,"senal":null}
+{"t":"2026-10-26T22:43:38.652Z","pid":69803,"nivel":"error","mensaje":"demasiados reinicios, no se reinicia más","reinicios":5}
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: bind EADDRINUSE null:3000
+    at listenOnPrimaryHandle (node:net:2523:18)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+Emitted 'error' event on Server instance at:
+    at listenOnPrimaryHandle (node:net:2524:21)
+    at rr (node:internal/cluster/child:164:12)
+    at Worker.<anonymous> (node:internal/cluster/child:114:7)
+    at process.onInternalMessage (node:internal/cluster/utils:49:5)
+    at process.emit (node:events:526:24)
+    at emit (node:internal/child_process:1020:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+  errno: -48,
+  code: 'EADDRINUSE',
+  syscall: 'bind',
+  address: null,
+  port: 3000
+}
+
+Node.js v24.22.0
+{"t":"2026-10-26T22:43:38.689Z","pid":69803,"nivel":"error","mensaje":"worker caído","worker":69821,"codigo":1,"senal":null}
+{"t":"2026-10-26T22:43:38.689Z","pid":69803,"nivel":"error","mensaje":"demasiados reinicios, no se reinicia más","reinicios":5}
