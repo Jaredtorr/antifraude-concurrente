@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Banco antifraude · Centro de control</title>
+    <title>Comercio antifraude · Centro de control</title>
     <style>
         :root {
             --bg: #070b18;
@@ -633,7 +633,289 @@
             opacity: .6
         }
 
+        .paneles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px
+        }
+
+        .panel {
+            padding: 16px 18px
+        }
+
+        .panel.ancho {
+            grid-column: 1 / -1
+        }
+
+        .panel h3 {
+            margin: 0 0 4px;
+            font-size: 15px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--oro)
+        }
+
+        .panel h3 span {
+            color: var(--dim);
+            letter-spacing: .02em;
+            text-transform: none;
+            font: 12px var(--mono);
+            margin-left: 8px
+        }
+
+        .panel p {
+            margin: 4px 0 12px
+        }
+
+        .campos {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px
+        }
+
+        .campos label {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--dim)
+        }
+
+        .campos input,
+        .campos select {
+            font: 14px var(--mono);
+            color: var(--txt);
+            background: #070d20;
+            border: 1px solid var(--bor);
+            border-radius: 8px;
+            padding: 7px 10px;
+            min-width: 0;
+            width: 150px
+        }
+
+        .botones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px
+        }
+
+        button {
+            font: 600 13px system-ui, sans-serif;
+            letter-spacing: .04em;
+            color: #06122b;
+            background: var(--az);
+            border: 0;
+            border-radius: 9px;
+            padding: 9px 16px;
+            cursor: pointer;
+            transition: filter .2s, opacity .2s
+        }
+
+        button:hover {
+            filter: brightness(1.15)
+        }
+
+        button:disabled {
+            opacity: .4;
+            cursor: default
+        }
+
+        button.sec {
+            background: transparent;
+            color: var(--txt);
+            border: 1px solid var(--bor)
+        }
+
+        button.pel {
+            background: var(--mal);
+            color: #fff
+        }
+
+        .res {
+            font: 12.5px var(--mono);
+            max-height: 230px;
+            overflow: auto;
+            border: 1px solid #1d2c5c;
+            border-radius: 10px;
+            background: #070d20;
+            padding: 6px 10px
+        }
+
+        .res:empty::before {
+            content: "sin movimientos todavía";
+            color: var(--dim)
+        }
+
+        .res div {
+            padding: 3px 0;
+            border-bottom: 1px solid #141f42;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .res .c200 {
+            color: var(--ok)
+        }
+
+        .res .c202 {
+            color: var(--az)
+        }
+
+        .res .cmal {
+            color: var(--mal)
+        }
+
+        .res .cwr {
+            color: var(--wr)
+        }
+
+        .pidtag {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-right: 6px
+        }
+
+        .lote {
+            border: 1px solid #1d2c5c;
+            border-radius: 10px;
+            background: #070d20;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font: 12.5px var(--mono)
+        }
+
+        .lote .barra {
+            margin: 6px 0
+        }
+
+        .lote.fin .barra i {
+            background: var(--ok)
+        }
+
+        .lote.err .barra i {
+            background: var(--mal)
+        }
+
+        table.lat {
+            width: 100%;
+            border-collapse: collapse;
+            font: 13px var(--mono)
+        }
+
+        table.lat th,
+        table.lat td {
+            text-align: right;
+            padding: 6px 10px;
+            border-bottom: 1px solid #1d2c5c
+        }
+
+        table.lat th:first-child,
+        table.lat td:first-child {
+            text-align: left
+        }
+
+        table.lat th {
+            color: var(--dim);
+            font-weight: 400
+        }
+
+        .cmp {
+            display: grid;
+            grid-template-columns: 210px 1fr 90px;
+            gap: 6px 14px;
+            align-items: center;
+            font: 13px var(--mono)
+        }
+
+        .cmp .nom {
+            font-family: system-ui, sans-serif;
+            font-size: 14px
+        }
+
+        .cmp .nom small {
+            display: block;
+            color: var(--dim);
+            font-size: 11.5px
+        }
+
+        .cmp .bars {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .cmp .b {
+            height: 16px;
+            border-radius: 5px;
+            min-width: 3px;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            font-size: 11px;
+            color: #05080f;
+            white-space: nowrap;
+            font-weight: 700
+        }
+
+        .cmp .fx {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap
+        }
+
+        .cmp .fx .b {
+            padding: 0;
+            flex: none
+        }
+
+        .cmp .antes {
+            background: var(--mal)
+        }
+
+        .cmp .desp {
+            background: var(--ok)
+        }
+
+        .cmp .desp.costo {
+            background: var(--wr)
+        }
+
+        .cmp .delta {
+            text-align: right;
+            font-weight: 700;
+            color: var(--ok)
+        }
+
+        .cmp .delta.costo {
+            color: var(--wr)
+        }
+
+        .cmp hr {
+            grid-column: 1 / -1;
+            width: 100%;
+            border: 0;
+            border-top: 1px solid #1d2c5c;
+            margin: 4px 0
+        }
+
         @media(max-width:900px) {
+            .cmp {
+                grid-template-columns: 1fr
+            }
+
+            .paneles {
+                grid-template-columns: 1fr
+            }
+
             .sucs {
                 grid-template-columns: 1fr
             }
@@ -661,7 +943,7 @@
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <div>
-                    <h1>Banco antifraude</h1><span class="dim">Centro de control en vivo · GET /health cada
+                    <h1>Comercio antifraude</h1><span class="dim">Centro de control en vivo · GET /health cada
                         segundo</span>
                 </div>
             </div>
@@ -714,7 +996,139 @@
             </svg>
         </section>
 
-        <main id="paneles"></main>
+        <main class="paneles" id="paneles">
+
+            <section class="caja panel" id="p-tarj">
+                <h3>Tarjetas <span>POST /tarjetas/:id/autorizar · cluster + IPC</span></h3>
+                <p class="dim">Cada tarjeta tiene 5 intentos por minuto. El contador vive en el proceso primario, así
+                    que
+                    cuenta igual aunque te atienda otro proceso: el PID cambia, el límite no.</p>
+                <div class="campos">
+                    <label>Tarjeta <input id="t-id" value="10010001"></label>
+                    <label>Monto <input id="t-monto" type="number" value="250" min="1"></label>
+                </div>
+                <div class="botones">
+                    <button id="t-uno">Pasar tarjeta</button>
+                    <button id="t-ras" class="sec">Ráfaga de 8</button>
+                </div>
+                <div class="res" id="t-res"></div>
+            </section>
+
+            <section class="caja panel" id="p-lotes">
+                <h3>Lotes <span>POST /lotes · worker_threads</span></h3>
+                <p class="dim">Revisión pesada de transacciones. El servidor contesta 202 al instante y el cálculo corre
+                    en el
+                    pool. Mira las sucursales de arriba: los cajeros se ocupan y /health sigue respondiendo.</p>
+                <div class="campos">
+                    <label>Transacciones
+                        <select id="l-tam">
+                            <option value="1000000">1 millón</option>
+                            <option value="10000000">10 millones</option>
+                            <option value="30000000" selected>30 millones</option>
+                            <option value="100000000">100 millones</option>
+                        </select>
+                    </label>
+                    <label>Semilla <input id="l-sem" type="number" value="42"></label>
+                </div>
+                <div class="botones">
+                    <button id="l-uno">Enviar lote</button>
+                    <button id="l-ras" class="sec">Saturar con 12</button>
+                </div>
+                <div id="l-lista"></div>
+            </section>
+
+            <section class="caja panel ancho" id="p-ana">
+                <h3>Análisis <span>POST /analisis · child_process + Python</span></h3>
+                <p class="dim">Sube un CSV de transacciones (el de python/generar_datos.py). El servidor lanza
+                    detectar.py
+                    como proceso externo y devuelve las sospechosas línea por línea. Si cancelas, el servidor mata al
+                    proceso
+                    hijo.</p>
+                <div class="campos">
+                    <label>Archivo CSV <input id="a-file" type="file" accept=".csv,text/csv"
+                            style="width:260px"></label>
+                    <label>contaminacion <input id="a-cont" value="0.01"></label>
+                    <label>top <input id="a-top" type="number" value="10" min="1"></label>
+                </div>
+                <div class="botones">
+                    <button id="a-go">Analizar</button>
+                    <button id="a-stop" class="pel" disabled>Cancelar</button>
+                </div>
+                <div class="res" id="a-res"></div>
+            </section>
+
+            <section class="caja panel ancho">
+                <h3>Latencia por recurso <span>sale de GET /health · proceso que respondió</span></h3>
+                <table class="lat">
+                    <thead>
+                        <tr>
+                            <th>recurso</th>
+                            <th>p50 ms</th>
+                            <th>p95 ms</th>
+                            <th>p99 ms</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lat-tabla">
+                        <tr>
+                            <td colspan="4" class="dim">sin peticiones medidas todavía</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="caja panel ancho">
+                <h3>Antes y después <span>medido con JMeter · cifras del informe, no en vivo</span></h3>
+                <p class="dim">Rojo: versión ingenua (un solo hilo). Verde: versión final. En /tarjetas la versión
+                    ingenua es más rápida pero incorrecta: cada proceso contaba los intentos por separado y el límite de
+                    5
+                    se multiplicaba. El p99 de /lotes final es el tiempo total del cálculo (cola + ejecución).</p>
+                <div class="cmp">
+                    <div class="nom">/health durante un lote<small>el hilo principal ya no se bloquea</small></div>
+                    <div class="bars">
+                        <div class="b antes" style="width:100%">1150 ms</div>
+                        <div class="fx">
+                            <div class="b desp" style="width:1.0%"></div><span>1.9 – 6.5 ms</span>
+                        </div>
+                    </div>
+                    <div class="delta">≈ 99 % menos</div>
+                    <hr>
+                    <div class="nom">/lotes p99<small>10 hilos de JMeter</small></div>
+                    <div class="bars">
+                        <div class="b antes" style="width:100%">52 991 ms</div>
+                        <div class="fx">
+                            <div class="b desp" style="width:10.3%"></div><span>5 435 ms</span>
+                        </div>
+                    </div>
+                    <div class="delta">−89.7 %</div>
+                    <hr>
+                    <div class="nom">/lotes p99<small>50 hilos de JMeter</small></div>
+                    <div class="bars">
+                        <div class="b antes" style="width:100%">123 857 ms</div>
+                        <div class="fx">
+                            <div class="b desp" style="width:4.7%"></div><span>5 849 ms</span>
+                        </div>
+                    </div>
+                    <div class="delta">−95.3 %</div>
+                    <hr>
+                    <div class="nom">/analisis p99<small>10 hilos de JMeter</small></div>
+                    <div class="bars">
+                        <div class="b antes" style="width:100%">26 891 ms</div>
+                        <div class="fx">
+                            <div class="b desp" style="width:6.6%"></div><span>1 780 ms</span>
+                        </div>
+                    </div>
+                    <div class="delta">−93.4 %</div>
+                    <hr>
+                    <div class="nom">/tarjetas · peticiones/s<small>10 hilos; sube el costo del IPC</small></div>
+                    <div class="bars">
+                        <div class="b antes" style="width:100%">103 761 /s (cuenta mal)</div>
+                        <div class="b desp costo" style="width:75.4%">78 250 /s (cuenta bien)</div>
+                    </div>
+                    <div class="delta costo">−24.6 %</div>
+                </div>
+            </section>
+
+        </main>
 
     </div>
     <script>
@@ -740,7 +1154,7 @@
         slots.push(crearSlot('A'), crearSlot('B'));
 
         function slotDe(pid) {
-            return slots.find((s) => s.pid === pid) || slots.find((s) => s.pid === null);
+            return slots.find((s) => s.pid === pid) || slots.find((s) => s.pid === null) || slots.reduce((a, b) => (a.visto <= b.visto ? a : b));
         }
 
         function pintarSlot(s, d) {
@@ -794,10 +1208,19 @@
             lat.push(ms);
             if (lat.length > N) lat.shift();
             dibujarPulso(ok);
+            if (demo.lotesActivos > 0 && ms !== null) demo.maxHealth = Math.max(demo.maxHealth, ms);
             const v = lat.filter((x) => x !== null);
             if (!v.length) return;
             const prom = v.reduce((a, b) => a + b, 0) / v.length;
             $('lat-det').textContent = 'mín ' + Math.min(...v).toFixed(1) + ' · prom ' + prom.toFixed(1) + ' · máx ' + Math.max(...v).toFixed(1);
+        }
+
+        const demo = { lotesActivos: 0, maxHealth: 0 };
+        function marcar(n, ok, texto) {
+            const e = $('est' + n);
+            if (!e) return;
+            e.className = 'est ' + (ok ? 'ok' : 'mal');
+            e.textContent = (ok ? '✓ ' : '✗ inesperado: ') + texto;
         }
 
         const dos = (n) => String(n).padStart(2, '0');
@@ -877,6 +1300,255 @@
         setInterval(() => {
             slots.forEach((s) => s.el.classList.toggle('viejo', s.pid === null || Date.now() - s.visto > 3500));
         }, 700);
+
+
+        /* ---------- paneles de prueba ---------- */
+        const colorPid = new Map();
+        const tagPid = (pid) => {
+            if (!colorPid.has(pid)) colorPid.set(pid, GENTE[colorPid.size % GENTE.length]);
+            return colorPid.get(pid);
+        };
+        const ms1 = (n) => (Number.isFinite(n) ? n.toFixed(1) : '–');
+        const corto = (o, max) => {
+            const t = typeof o === 'string' ? o : JSON.stringify(o);
+            return t.length > max ? t.slice(0, max) + '…' : t;
+        };
+        function linea(cont, clase, pid, texto) {
+            const el = document.createElement('div');
+            el.className = clase;
+            if (pid) {
+                const p = document.createElement('i');
+                p.className = 'pidtag';
+                p.style.background = tagPid(pid);
+                el.appendChild(p);
+            }
+            el.appendChild(document.createTextNode(texto));
+            cont.prepend(el);
+            while (cont.children.length > 60) cont.lastChild.remove();
+        }
+        const claseHttp = (c) => (c === 200 ? 'c200' : c === 202 ? 'c202' : c === 429 || c === 503 ? 'cwr' : 'cmal');
+
+        /* tarjetas */
+        let nTarj = 0;
+        async function autorizar(idForzado) {
+            const id = encodeURIComponent(String(idForzado ?? $('t-id').value).trim());
+            const monto = Number($('t-monto').value);
+            const t0 = performance.now();
+            try {
+                const r = await fetch('/tarjetas/' + id + '/autorizar', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({ monto })
+                });
+                const ms = performance.now() - t0;
+                let d = {};
+                try { d = await r.json(); } catch (e) { }
+                const pid = r.headers.get('x-pid') || d.pid || '?';
+                const nota = r.status === 429 ? 'LÍMITE ALCANZADO · ' : '';
+                linea($('t-res'), claseHttp(r.status), pid, '#' + (++nTarj) + ' · PID ' + pid + ' · ' + r.status + ' · ' + ms1(ms) + ' ms · ' + nota + corto(d, 80));
+                return { status: r.status, pid };
+            } catch (e) {
+                linea($('t-res'), 'cmal', null, '#' + (++nTarj) + ' · sin respuesta del servidor');
+                return { status: 0, pid: null };
+            }
+        }
+        $('t-uno').onclick = () => autorizar();
+        async function rafagaTarjetas(idForzado) {
+            let ok = 0, mal = 0;
+            const pids = new Set();
+            for (let i = 0; i < 8; i++) {
+                const r = await autorizar(idForzado);
+                if (r.status === 200) { ok++; pids.add(r.pid); }
+                if (r.status === 429) mal++;
+            }
+            return { ok, mal, pids: pids.size };
+        }
+        $('t-ras').onclick = async () => {
+            $('t-ras').disabled = true;
+            await rafagaTarjetas();
+            $('t-ras').disabled = false;
+        };
+
+        /* lotes */
+        const TERMINADOS = /termin|complet|listo|finaliz|hecho|done|ok/i;
+        const FALLADOS = /error|fall|timeout|cancel/i;
+        function porcentaje(d, fin) {
+            if (fin) return 100;
+            let a = d.avance;
+            if (typeof a === 'string' && a.includes('/')) {
+                const [hecho, total] = a.split('/').map(Number);
+                a = total ? hecho / total : 0;
+            }
+            if (a && typeof a === 'object') {
+                const hecho = a.hechos ?? a.completados ?? a.tramos_listos ?? a.listos;
+                const total = a.total ?? a.tramos;
+                a = total ? hecho / total : 0;
+            }
+            if (typeof a !== 'number' || !Number.isFinite(a)) return 0;
+            return Math.max(0, Math.min(100, a <= 1 ? a * 100 : a));
+        }
+        function textoTiempos(d) {
+            const partes = [];
+            for (const k of ['cola_ms', 'ejecucion_ms', 'total_ms']) {
+                if (Number.isFinite(d[k])) partes.push(k.replace(/_ms$/, '') + ' ' + Math.round(d[k]) + ' ms');
+            }
+            if (d.resultado && typeof d.resultado === 'object') {
+                const r = d.resultado;
+                if (Number.isFinite(r.analizadas)) partes.push(r.analizadas.toLocaleString('es-MX') + ' analizadas');
+                if (Number.isFinite(r.sospechosas)) partes.push(r.sospechosas.toLocaleString('es-MX') + ' sospechosas');
+            }
+            if (d.avance) partes.unshift('tramos ' + d.avance);
+            return partes.join(' · ');
+        }
+        function seguirLote(id, tam) {
+            const caja = document.createElement('div');
+            caja.className = 'lote';
+            caja.innerHTML = '<div class="enc"></div><div class="barra"><i></i></div><div class="dim det"></div>';
+            $('l-lista').prepend(caja);
+            while ($('l-lista').children.length > 6) $('l-lista').lastChild.remove();
+            const enc = caja.querySelector('.enc'), barra = caja.querySelector('i'), det = caja.querySelector('.det');
+            const t0 = Date.now();
+            if (demo.lotesActivos === 0) demo.maxHealth = 0;
+            demo.lotesActivos++;
+            const cerrar = (bien) => {
+                demo.lotesActivos--;
+                if (bien) marcar(2, demo.maxHealth < 200, 'lote terminado en ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s; /health tardó como máximo ' + demo.maxHealth.toFixed(1) + ' ms mientras tanto (rúbrica: menos de 200 ms)');
+            };
+            enc.textContent = 'lote ' + corto(String(id), 12) + ' · ' + (tam / 1e6) + ' M · 202 aceptado';
+            const vuelta = async () => {
+                try {
+                    const r = await fetch('/lotes/' + encodeURIComponent(id), { cache: 'no-store' });
+                    if (r.status === 404) { enc.textContent += ' · 404'; caja.classList.add('err'); cerrar(false); return; }
+                    const d = await r.json();
+                    const estado = String(d.estado ?? '');
+                    const fin = TERMINADOS.test(estado) && !FALLADOS.test(estado);
+                    const mal = FALLADOS.test(estado);
+                    barra.style.width = porcentaje(d, fin) + '%';
+                    enc.textContent = 'lote ' + corto(String(id), 12) + ' · ' + (tam / 1e6) + ' M · ' + (estado || '…');
+                    det.textContent = textoTiempos(d) || 'esperando resultado…';
+                    caja.title = JSON.stringify(d);
+                    if (fin) { caja.classList.add('fin'); cerrar(true); return; }
+                    if (mal) { caja.classList.add('err'); cerrar(false); return; }
+                } catch (e) { }
+                if (Date.now() - t0 < 180000) setTimeout(vuelta, 400); else cerrar(false);
+            };
+            vuelta();
+        }
+        async function enviarLote() {
+            let estado = 0;
+            const tamano = Number($('l-tam').value);
+            const semilla = Number($('l-sem').value) || 42;
+            try {
+                const r = await fetch('/lotes', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({ tamano, semilla })
+                });
+                estado = r.status;
+                let d = {};
+                try { d = await r.json(); } catch (e) { }
+                if (r.status === 202) {
+                    const id = d.id ?? d.lote_id ?? d.lote ?? (r.headers.get('location') || '').split('/').pop();
+                    seguirLote(id, tamano);
+                } else {
+                    const caja = document.createElement('div');
+                    caja.className = 'lote err';
+                    const reint = r.headers.get('retry-after');
+                    caja.textContent = r.status + (r.status === 503 ? ' · cola llena, el servidor rechaza para no acumular' : '') + (reint ? ' · reintentar en ' + reint + ' s' : '') + ' · ' + corto(d, 60);
+                    caja.style.color = r.status === 503 ? 'var(--wr)' : 'var(--mal)';
+                    $('l-lista').prepend(caja);
+                    while ($('l-lista').children.length > 6) $('l-lista').lastChild.remove();
+                }
+            } catch (e) { }
+            return estado;
+        }
+        $('l-uno').onclick = enviarLote;
+        async function saturar() {
+            const rs = await Promise.all(Array.from({ length: 12 }, enviarLote));
+            const n503 = rs.filter((x) => x === 503).length;
+            const n202 = rs.filter((x) => x === 202).length;
+            marcar(3, n503 > 0, n202 + ' aceptados (202) y ' + n503 + ' rechazados (503)' + (n503 ? '' : '; la cola aguantó los 12, prueba con un lote más grande'));
+        }
+        $('l-ras').onclick = async () => {
+            $('l-ras').disabled = true;
+            await saturar();
+            $('l-ras').disabled = false;
+        };
+
+        /* análisis */
+        let ctlAnalisis = null;
+        const MENSAJES = { 400: 'CSV inválido', 413: 'archivo demasiado grande', 429: 'ya hay revisiones en curso (límite de procesos externos)', 503: 'servicio ocupado', 504: 'la revisión tardó más del timeout y se mató al proceso' };
+        function lineaAnalisis(txt) {
+            let o;
+            try { o = JSON.parse(txt); } catch (e) { return txt; }
+            const val = (v) => (v && typeof v === 'object' ? Object.entries(v).map(([a, b]) => a + ' ' + b).join(', ') : typeof v === 'number' ? +v.toFixed(3) : v);
+            if (o && typeof o === 'object') return Object.entries(o).map(([k, v]) => k + ': ' + val(v)).join(' · ');
+            return String(o);
+        }
+        async function analizar() {
+            const f = $('a-file').files[0];
+            const cont = $('a-res');
+            if (!f) { linea(cont, 'cwr', null, 'elige primero un archivo CSV'); return; }
+            ctlAnalisis = new AbortController();
+            $('a-go').disabled = true;
+            $('a-stop').disabled = false;
+            const q = '?contaminacion=' + encodeURIComponent($('a-cont').value) + '&top=' + encodeURIComponent($('a-top').value);
+            const t0 = performance.now();
+            linea(cont, 'c202', null, 'enviando ' + f.name + ' (' + (f.size / 1024).toFixed(0) + ' KB)…');
+            try {
+                const r = await fetch('/analisis' + q, { method: 'POST', headers: { 'content-type': 'text/csv' }, body: f, signal: ctlAnalisis.signal });
+                const pid = r.headers.get('x-pid');
+                if (r.status !== 200) {
+                    let d = '';
+                    try { d = corto(await r.text(), 80); } catch (e) { }
+                    linea(cont, claseHttp(r.status), pid, r.status + ' · ' + (MENSAJES[r.status] || 'error') + ' · ' + d);
+                } else {
+                    const lector = r.body.getReader();
+                    const dec = new TextDecoder();
+                    let resto = '', n = 0;
+                    for (; ;) {
+                        const { value, done } = await lector.read();
+                        if (done) break;
+                        resto += dec.decode(value, { stream: true });
+                        const partes = resto.split('\n');
+                        resto = partes.pop();
+                        for (const p of partes) if (p.trim()) { n++; linea(cont, 'c200', pid, lineaAnalisis(p)); }
+                    }
+                    if (resto.trim()) { n++; linea(cont, 'c200', pid, lineaAnalisis(resto)); }
+                    linea(cont, 'c200', pid, '200 · ' + n + ' líneas · ' + ms1(performance.now() - t0) + ' ms · PID ' + (pid || '?'));
+                    marcar(4, n > 0, 'análisis completo: ' + n + ' líneas en ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s');
+                }
+            } catch (e) {
+                if (e.name === 'AbortError') marcar(4, true, 'cancelado; revisa que "revisiones externas" vuelva a 0 (el hijo se mató)');
+                linea(cont, 'cwr', null, e.name === 'AbortError' ? 'cancelado: el servidor debe matar al proceso Python (revisa "revisiones externas" arriba)' : 'sin respuesta del servidor');
+            } finally {
+                ctlAnalisis = null;
+                $('a-go').disabled = false;
+                $('a-stop').disabled = true;
+            }
+        }
+        $('a-go').onclick = analizar;
+        $('a-stop').onclick = () => { if (ctlAnalisis) ctlAnalisis.abort(); };
+
+        /* tabla de latencia (la saca de /health sin suponer el nombre del campo) */
+        document.addEventListener('health', (ev) => {
+            const d = ev.detail.datos;
+            let mapa = null;
+            for (const v of Object.values(d)) {
+                if (v && typeof v === 'object' && Object.values(v).some((x) => x && typeof x === 'object' && 'p99' in x)) { mapa = v; break; }
+            }
+            if (!mapa) return;
+            const filas = Object.entries(mapa).filter(([, x]) => x && typeof x === 'object').map(([k, x]) => {
+                const tr = document.createElement('tr');
+                [k, x.p50, x.p95, x.p99].forEach((v, i) => {
+                    const td = document.createElement('td');
+                    td.textContent = i === 0 ? v : (Number.isFinite(v) ? v.toFixed(1) : '–');
+                    tr.appendChild(td);
+                });
+                return tr;
+            });
+            if (filas.length) $('lat-tabla').replaceChildren(...filas);
+        });
 
         sondear();
     </script>
